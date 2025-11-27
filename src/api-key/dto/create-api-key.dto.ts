@@ -1,0 +1,7 @@
+import { IsNumber } from "class-validator";
+
+
+export class CreateApiKeyDto {
+    @IsNumber()
+    profesorId: number
+}
