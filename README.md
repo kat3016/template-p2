@@ -21,9 +21,26 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Springfield Taxes API
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Private routes require header `token: <UUID id or token string>`.
+
+### Endpoints
+
+- POST `/token` — create token (defaults: active=true, reqLeft=10)
+- GET `/token/:idToken` — returns usable boolean (active && reqLeft>0)
+- PATCH `/token/reduce/:idToken` — decrement reqLeft
+
+- POST `/character` — create { name, salary, employee }
+- PATCH `/character/:id/favorites/:locationId` — add location to character favorites
+- GET `/character/:id/taxes` — returns { taxDebt } or { taxDebt: 0 }
+
+- POST `/location` — create { name, type, cost, ownerId } with validations
+- GET `/location` — list locations with `favCharacters`
+
+### Notes
+- After each successful private request, the token's `reqLeft` is decremented.
+- Invalid cases return `ValidationException` (400) with clear messages.
 
 ## Project setup
 
@@ -44,17 +61,11 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Run tests
+## Run
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# development
+npm run start:dev
 ```
 
 ## Deployment
